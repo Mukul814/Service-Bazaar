@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Home Plumbing",
+    "description": "Professional plumbing services for your home including repairs, installations, and maintenance.",
+    "rate": 500,
+    "currency": "INR",
+    "iconUrl": "🔧"
+  },
+  {
+    "id": "2",
+    "name": "Electrical Services",
+    "description": "Complete electrical solutions including wiring, repairs, and installations by certified electricians.",
+    "rate": 750,
+    "currency": "INR",
+    "iconUrl": "⚡"
+  },
+  {
+    "id": "3",
+    "name": "House Cleaning",
+    "description": "Deep cleaning services for your home with eco-friendly products and professional staff.",
+    "rate": 800,
+    "currency": "INR",
+    "iconUrl": "🧹"
+  },
+  {
+    "id": "4",
+    "name": "AC Repair & Service",
+    "description": "Air conditioning repair, maintenance, and installation services for all brands.",
+    "rate": 650,
+    "currency": "INR",
+    "iconUrl": "❄️"
+  },
+  {
+    "id": "5",
+    "name": "Pest Control",
+    "description": "Safe and effective pest control services for homes and offices using eco-friendly methods.",
+    "rate": 1200,
+    "currency": "INR",
+    "iconUrl": "🐛"
+  }
+]

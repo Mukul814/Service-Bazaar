@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-saffron: #FF9933;
+  --color-forest: #138808;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Mukta', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.saffron {
+  color: var(--color-saffron);
+}
+
+.forest {
+  color: var(--color-forest);
+}
+
+.bg-saffron {
+  background-color: var(--color-saffron);
+}
+
+.bg-forest {
+  background-color: var(--color-forest);
+}
+
+.border-saffron {
+  border-color: var(--color-saffron);
+}
+
+.border-forest {
+  border-color: var(--color-forest);
+}
+
+.text-saffron {
+  color: var(--color-saffron);
+}
+
+.text-forest {
+  color: var(--color-forest);
+}
+
+.ring-saffron {
+  --tw-ring-color: var(--color-saffron);
+}
+
+.ring-forest {
+  --tw-ring-color: var(--color-forest);
+}
+
+.focus\:ring-saffron:focus {
+  --tw-ring-color: var(--color-saffron);
+}
+
+.focus\:border-saffron:focus {
+  border-color: var(--color-saffron);
+}
+
+.hover\:bg-saffron\/90:hover {
+  background-color: rgb(255 153 51 / 0.9);
+}
+
+.hover\:bg-forest\/90:hover {
+  background-color: rgb(19 136 8 / 0.9);
+}
+
+/* Responsive Design */
+@media (max-width: 420px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .p-8 {
+    padding: 1.5rem;
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Button Animations */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Card Hover Effects */
+.hover\:shadow-lg:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth Transitions */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.transition-colors {
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.transition-shadow {
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Loading Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-saffron\/20 {
+  --tw-gradient-from: rgb(255 153 51 / 0.2);
+  --tw-gradient-to: rgb(255 153 51 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-forest\/20 {
+  --tw-gradient-to: rgb(19 136 8 / 0.2);
+}
