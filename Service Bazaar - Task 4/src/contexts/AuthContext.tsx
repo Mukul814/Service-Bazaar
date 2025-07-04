@@ -19,144 +19,88 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+  if (!context) {
+    throw new Error('useAuth only works inside AuthContext');
   }
   return context;
 };
 
-// Mock users for demo
-const mockUsers = [
-  { id: '1', email: 'user@demo.com', password: 'password', role: 'user' as const },
-  { id: '2', email: 'admin@demo.com', password: 'password', role: 'admin' as const },
+// demo data
+const demoUsers = [
+  { id: '1', email: 'user@demo.com', password: 'password', role: 'user' },
+  { id: '2', email: 'admin@demo.com', password: 'password', role: 'admin' }
 ];
 
-// Mock services data
-const mockServices = [
-  {
-    id: '1',
-    name: 'Home Plumbing',
-    description: 'Professional plumbing services for your home including repairs, installations, and maintenance.',
-    rate: 500,
-    currency: 'INR',
-    iconUrl: '🔧'
-  },
-  {
-    id: '2',
-    name: 'Electrical Services',
-    description: 'Complete electrical solutions including wiring, repairs, and installations by certified electricians.',
-    rate: 750,
-    currency: 'INR',
-    iconUrl: '⚡'
-  },
-  {
-    id: '3',
-    name: 'House Cleaning',
-    description: 'Deep cleaning services for your home with eco-friendly products and professional staff.',
-    rate: 800,
-    currency: 'INR',
-    iconUrl: '🧹'
-  },
-  {
-    id: '4',
-    name: 'AC Repair & Service',
-    description: 'Air conditioning repair, maintenance, and installation services for all brands.',
-    rate: 650,
-    currency: 'INR',
-    iconUrl: '❄️'
-  },
-  {
-    id: '5',
-    name: 'Pest Control',
-    description: 'Safe and effective pest control services for homes and offices using eco-friendly methods.',
-    rate: 1200,
-    currency: 'INR',
-    iconUrl: '🐛'
-  }
+const demoServices = [
+  { id: '1', name: 'Home Plumbing', rate: 500, currency: 'INR', iconUrl: '🔧' },
+  { id: '2', name: 'Electrical Services', rate: 750, currency: 'INR', iconUrl: '⚡' }
 ];
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const MyAuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(''); // maybe use later
 
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
-    
+
     if (savedToken && savedUser) {
       setToken(savedToken);
       setUser(JSON.parse(savedUser));
     }
-    setLoading(false);
 
-    // Initialize mock services in localStorage
     if (!localStorage.getItem('services')) {
-      localStorage.setItem('services', JSON.stringify(mockServices));
+      localStorage.setItem('services', JSON.stringify(demoServices));
     }
+
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(res => setTimeout(res, 400));
+    console.log("Logging in as:", email);
 
-    const mockUser = mockUsers.find(u => u.email === email && u.password === password);
-    
-    if (!mockUser) {
-      throw new Error('Invalid credentials');
-    }
+    const matchedUser = demoUsers.find(u => u.email === email && u.password === password);
+    if (!matchedUser) throw new Error('Wrong email or pass');
 
-    const mockToken = `mock-token-${mockUser.id}`;
-    const userData = { id: mockUser.id, email: mockUser.email, role: mockUser.role };
-    
-    setToken(mockToken);
+    const token = `fake-token-${matchedUser.id}`;
+    const userData = { id: matchedUser.id, email, role: matchedUser.role };
+
     setUser(userData);
-    localStorage.setItem('token', mockToken);
+    setToken(token);
+    localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const register = async (email: string, password: string, role = 'user') => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(res => setTimeout(res, 400));
+    if (demoUsers.find(u => u.email === email)) throw new Error('Already exists');
 
-    // Check if user already exists
-    if (mockUsers.find(u => u.email === email)) {
-      throw new Error('User already exists');
-    }
+    const newUser = { id: Date.now().toString(), email, password, role };
+    demoUsers.push(newUser);
 
-    const newUser = {
-      id: Date.now().toString(),
-      email,
-      password,
-      role: role as 'user' | 'admin'
-    };
+    const token = `fake-token-${newUser.id}`;
+    const userData = { id: newUser.id, email, role: newUser.role };
 
-    mockUsers.push(newUser);
-
-    const mockToken = `mock-token-${newUser.id}`;
-    const userData = { id: newUser.id, email: newUser.email, role: newUser.role };
-    
-    setToken(mockToken);
     setUser(userData);
-    localStorage.setItem('token', mockToken);
+    setToken(token);
+    localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
+    console.log("Logging out");
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   };
 
-  const value = {
-    user,
-    token,
-    login,
-    register,
-    logout,
-    loading,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, token, login, register, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
