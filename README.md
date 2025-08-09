@@ -8,6 +8,11 @@ A simple service booking app made using React, TypeScript, Vite, CSS and a basic
 - Login flow
 - Sample data stored locally in JSON
 
+## Website Link
+
+https://beautiful-cucurucho-f8ead4.netlify.app
+
+
 ## Setup
 1. Run `npm install`
 2. Start frontend with `npm run dev`
